@@ -1,4 +1,4 @@
-import { createContext, Dispatch, useState } from "react";
+import { createContext, Dispatch } from "react";
 
 interface MusicControllerState {
     playing: any;
@@ -9,6 +9,7 @@ interface MusicControllerState {
     currentSongArt: any;
     currentSongDuration: any;
     currentSongIndex: any;
+    currentTime: any;
     initiallized: any;
     volume: any;
     songPlayer: HTMLAudioElement | null;
@@ -24,6 +25,7 @@ interface MusicControllerState {
     setInitiallized: Dispatch<any> | null;
     setVolume: Dispatch<any> | null;
     setSongPlayer: Dispatch<any> | null;
+    setCurrentTime: Dispatch<any> | null;
 }
 
 export const MusicControllerContext = createContext<MusicControllerState>({
@@ -35,6 +37,7 @@ export const MusicControllerContext = createContext<MusicControllerState>({
     currentSongArt: null,
     currentSongDuration: null,
     currentSongIndex: null,
+    currentTime: null,
     volume: null,
     songPlayer: null,
     initiallized: false,
@@ -49,4 +52,5 @@ export const MusicControllerContext = createContext<MusicControllerState>({
     setInitiallized: null,
     setVolume: null,
     setSongPlayer: null,
+    setCurrentTime: null,
 });

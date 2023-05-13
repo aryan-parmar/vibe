@@ -19,6 +19,7 @@ export default function RootLayout({
     const [currentSongArt, setCurrentSongArt] = useState("");
     const [currentSongDuration, setCurrentSongDuration] = useState(0);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
     const [songPlayer, setSongPlayer] = useState<HTMLAudioElement | null>(null);
     const [initiallized, setInitiallized] = useState(false);
     const [volume, setVolume] = useState(0.5);
@@ -33,6 +34,9 @@ export default function RootLayout({
     state.songPlayer = songPlayer;
     state.volume = volume;
     state.initiallized = initiallized;
+    state.currentTime = currentTime;
+    
+    state.setCurrentTime = setCurrentTime;
     state.setPlaying = setPlaying;
     state.setQueue = setQueue;
     state.setCurrentSongName = setCurrentSongName;
