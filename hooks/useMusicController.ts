@@ -36,7 +36,13 @@ export const useMusicController = () => {
             state.setSongPlayer && state.setSongPlayer(player);
             state.setInitiallized && state.setInitiallized(true);
             setQueue(queue);
-            setSong(queue[0].src, queue[0].name, queue[0].artist, queue[0].cover);
+            setSong(
+                queue[0].src,
+                queue[0].name,
+                queue[0].artist,
+                queue[0].cover
+            );
+            state.setCurrentSongIndex && state.setCurrentSongIndex(0);
         }
     };
     const getQueue = () => {
