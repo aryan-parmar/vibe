@@ -28,6 +28,17 @@ export const useMusicController = () => {
             });
         }
     }, [state.songPlayer]);
+    const init = (
+        queue: { src: string; name: string; artist: string; cover: string }[]
+    ) => {
+        if (!state.initiallized) {
+            let player = new Audio();
+            state.setSongPlayer && state.setSongPlayer(player);
+            state.setInitiallized && state.setInitiallized(true);
+            setQueue(queue);
+            setSong(queue[0].src, queue[0].name, queue[0].artist, queue[0].cover);
+        }
+    };
     const getQueue = () => {
         return state.queue;
     };
@@ -269,7 +280,9 @@ export const useMusicController = () => {
     ) => {
         state.setQueue && state.setQueue([...queue]);
     };
+
     return {
+        init,
         playSong,
         togglePlay,
         nextSong,

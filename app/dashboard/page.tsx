@@ -1,6 +1,8 @@
 "use client";
 import AlbumSection from "@/components/AlbumSection";
 import { SearchInput } from "@/components/UiElements";
+import { useMusicController } from "@/hooks/useMusicController";
+import { useEffect } from "react";
 let data = [
     {
         name: "landslide",
@@ -61,13 +63,17 @@ let data2 = [
 ];
 
 export default function DashboardLayout() {
+    let MusicController  = useMusicController();
+    useEffect(() => {
+        MusicController.init(data2)
+    }, [])
     return (
         <>
-            <div className="flex-1 h-[calc(100vh-20px)]  w-full overflow-hidden scroll-smooth">
-                <div className="h-12 w-full flex justify-start items-center gap-2 top-0 p-4 pl-4 z-40">
+            <div className="flex-1 md:flex-[0.85] lg:flex-[0.8] h-[calc(100vh-20px)] w-full overflow-hidden scroll-smooth">
+                <div className="h-16 w-full flex justify-start items-center gap-2 top-0 p-4 pl-4 z-40">
                     <SearchInput />
                 </div>
-                <div className="w-full h-[90%] pt-11 flex flex-col gap-8 last:pb-24 overflow-y-auto">
+                <div className="w-full h-[90%] pt-4 flex flex-col gap-8 last:pb-24 overflow-y-auto overflow-x-hidden">
                     <AlbumSection name="Continue listening" data={data} type={1}/>
                     <AlbumSection name="Continue listening" data={data2} type={2}/>
                     <AlbumSection name="Continue listening" data={data2} type={2}/>

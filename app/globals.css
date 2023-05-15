@@ -25,19 +25,18 @@
 
 @layer utilities {
   .custom-grid-1 {
-    display: flex;
+    display: grid;
+    grid-template-columns: 22.1875% 22.1875% 22.1875% 22.1875%;
     align-items: center;
-    justify-content: flex-start;
-    height: 35vh;
+    gap: 3.75%;
     overflow-x: scroll;
   }
 
   .custom-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: 17% 17% 17% 17% 17%;
+    gap: 3.75%;
     align-items: center;
-    justify-content: flex-start;
-    height: 30vh;
-    overflow-x: scroll;
   }
 }
 

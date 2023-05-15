@@ -22,14 +22,14 @@ export default function Album(props: {
         state.playSong(props.src, props.name, props.artist, props.cover);
     }
     return (
-        <div className="h-full aspect-[4.5_/_5] relative">
+        <div className="h-full a relative">
             <div
                 className="aspect-square w-[85%] bg-cover rounded-lg overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0 backdrop-brightness-150"
                 ref={coverAmbient}
             ></div>
             <div className="w-full h-full bg-cover rounded-lg overflow-hidden bg-center opacity max-h-[300px] max-w-[300px] p-3 bg-[rgba(62,62,62,0.6)] z-20 relative backdrop-blur-3xl">
                 <div
-                    className="aspect-square w-full bg-cover rounded-lg overflow-hidden relative"
+                    className="aspect-square w-full bg-cover rounded-lg overflow-hidden relative brightness-75"
                     ref={cover}
                 >
                     <div
@@ -45,7 +45,7 @@ export default function Album(props: {
                         </svg>
                     </div>
                 </div>
-                <h2 className="font-semibold text-md text-[#d7d7d7] capitalize max-w-[100%] w-auto overflow-hidden whitespace-nowrap">
+                <h2 className="font-semibold text-md text-[#d7d7d7] capitalize max-w-[100%] w-[14rem] overflow-hidden whitespace-nowrap">
                     {props.name}
                 </h2>
             </div>
