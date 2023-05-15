@@ -36,8 +36,8 @@ export default function MediaControl() {
     return (
         <>
             <div
-                className={`bg-[#101024] w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-all ${
-                    view ? "h-[97vh] flex" : "hidden"
+                className={`bg-[#101024] transition-opacity duration-1000 pointer-events-none flex w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
+                    view ? "h-[97vh] opacity-100" : "opacity-0"
                 }`}
             >
                 <img
@@ -49,7 +49,7 @@ export default function MediaControl() {
                 />
             </div>
             <div
-                className={`w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-all ${
+                className={`w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-all duration-500 ease-out ${
                     view
                         ? "h-[97vh] backdrop-blur-3xl bg-[#24222e6c]"
                         : "bg-[#24222e]"
@@ -191,10 +191,10 @@ export default function MediaControl() {
                         <Button
                             icon={faUpRightAndDownLeftFromCenter}
                             onClick={() => {
+                                view ? setView(false) : setView(true);
                                 document
                                     .querySelector("body")!
                                     .requestFullscreen();
-                                view ? setView(false) : setView(true);
                             }}
                             className="h-8 w-8"
                         />
