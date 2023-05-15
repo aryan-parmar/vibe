@@ -25,16 +25,25 @@
 
 @layer utilities {
   .custom-grid-1 {
-    grid-template-columns: repeat(auto-fit, minmax(60px, 250px));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 35vh;
+    overflow-x: scroll;
   }
 
   .custom-grid {
-    grid-template-columns: repeat(auto-fit, minmax(60px, 200px));
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 30vh;
+    overflow-x: scroll;
   }
 }
 
 ::-webkit-scrollbar {
-  width: 2.5px;
+  width: 2px;
+  height: 0px;
 }
 
 ::-webkit-scrollbar-track {
@@ -72,13 +81,15 @@ body {
   height: 100vh;
   font-family: 'Golos Text', sans-serif;
 }
-
+:root{
+  --percent: 0%;
+}
 body {
-  background: rgba(var(--background-color), 1);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  background: linear-gradient(109.6deg, rgb(12, 17, 28) 11.2%, #171c24 91.1%)
+  /* background: linear-gradient(109.6deg, rgb(12, 17, 28) 11.2%, #171c24 91.1%) */
+  background-image: url(/bg.png);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -86,50 +97,38 @@ body {
     color-scheme: dark;
   }
 }
-
 .input-slider {
   position: relative !important;
   appearance: none;
   -webkit-appearance: none;
   outline: none;
-  background: #9DA5D0;
-  height: 5px;
-  border-radius: 5px;
-  color: #9DA5D0;  
+  height: 6px;
+  border-radius: 6px;
+  color: #9DA5D0;
+}
+
+.input-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #9DA5D0 var(--percent), transparent var(--percent));
 }
 
 .input-slider::-webkit-slider-runnable-track {
   width: 100%;
-  height: 3px;
+  height: 6px;
   cursor: pointer;
   -webkit-appearance: none;
+  border-radius: 5px;
 }
-.input-slider::-moz-range-progress{
-  background-color: #9DA5D0;
-}
-.input-slider::before{
-  position: absolute;
-  content: "";
-  top: 0px;
-  left: 0;
-  height: 3px;
-  width: var(--seek-before-width);
-  background-color: #007db5;
-  cursor: pointer;
-}
+
 .input-slider::-webkit-slider-thumb {
   position: relative;
   -webkit-appearance: none;
   box-sizing: content-box;
-  border: 1px solid #9DA5D0;
   height: 15px;
   width: 15px;
   border-radius: 50%;
   background-color: #fff;
   cursor: pointer;
   margin: -7px 0 0 0;
-}
-
-.input-slider:active::-webkit-slider-thumb {
-  background: #9DA5D0;
+  transform-origin: top;
+  transform: translateY(15%);
 }

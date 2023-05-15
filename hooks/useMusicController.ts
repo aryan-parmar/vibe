@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import { useContext, useEffect } from "react";
 import { MusicControllerContext } from "../contexts/MusicControllerContext";
 
@@ -27,7 +28,10 @@ export const useMusicController = () => {
             });
         }
     }, [state.songPlayer]);
-    const playSong = (
+    const getQueue = () => {
+        return state.queue;
+    };
+    const setSong = (
         src: string,
         name: string,
         artist: string,
@@ -37,17 +41,19 @@ export const useMusicController = () => {
             let player = new Audio(src);
             state.setSongPlayer && state.setSongPlayer(player);
             state.setInitiallized && state.setInitiallized(true);
-            player.play();
         } else {
             state.songPlayer!.src = src;
-            state.songPlayer && state.songPlayer.play();
         }
         state.setCurrentSongArt && state.setCurrentSongArt(cover);
-        state.setPlaying && state.setPlaying(true);
+        state.setPlaying && state.setPlaying(false);
         state.setCurrentSongName && state.setCurrentSongName(name);
         state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
         state.setCurrentSongIndex && state.setCurrentSongIndex(0);
-        state.setQueue && state.setQueue([{ src, name, artist, cover }]);
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: name,
+            artist: artist,
+            artwork: [{ src: cover }],
+        });
         navigator.mediaSession.metadata = new MediaMetadata({
             title: name,
             artist: artist,
@@ -83,13 +89,65 @@ export const useMusicController = () => {
         navigator.mediaDevices.addEventListener("previoustrack", () => {
             nextSong();
         });
-        // navigator.mediaDevices.enumerateDevices().then((devices) => {
-        //     devices.forEach((device) => {
-        //         if (device.kind === "audiooutput") {
-        //             console.log(device);
-        //         }
-        //     });
-        // });
+    };
+
+    const playSong = (
+        src: string,
+        name: string,
+        artist: string,
+        cover: string
+    ) => {
+        setQueue([{ src, name, artist, cover }]);
+        if (state.queue && state.queue.length > 0) {
+            if (!state.initiallized) {
+                let player = new Audio(src);
+                state.setSongPlayer && state.setSongPlayer(player);
+                state.setInitiallized && state.setInitiallized(true);
+                player.play();
+            } else {
+                state.songPlayer!.src = src;
+                state.songPlayer && state.songPlayer.play();
+            }
+            state.setCurrentSongArt && state.setCurrentSongArt(cover);
+            state.setPlaying && state.setPlaying(true);
+            state.setCurrentSongName && state.setCurrentSongName(name);
+            state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: name,
+                artist: artist,
+                artwork: [{ src: cover }],
+            });
+            navigator.mediaSession.setActionHandler("play", () => {
+                togglePlay();
+            });
+            navigator.mediaSession.setActionHandler("pause", () => {
+                togglePlay();
+            });
+            navigator.mediaSession.setActionHandler("nexttrack", () => {
+                nextSong();
+            });
+            navigator.mediaSession.setActionHandler("previoustrack", () => {
+                nextSong();
+            });
+            navigator.mediaSession.setActionHandler("seekto", (details) => {
+                seek(details.seekTime!);
+            });
+            navigator.mediaSession.setActionHandler("stop", () => {
+                state.songPlayer && state.songPlayer.pause();
+            });
+            navigator.mediaDevices.addEventListener("pause", () => {
+                togglePlay();
+            });
+            navigator.mediaDevices.addEventListener("play", () => {
+                togglePlay();
+            });
+            navigator.mediaDevices.addEventListener("nexttrack", () => {
+                nextSong();
+            });
+            navigator.mediaDevices.addEventListener("previoustrack", () => {
+                nextSong();
+            });
+        }
     };
     const togglePlay = () => {
         if (state.songPlayer && state.initiallized) {
@@ -100,20 +158,89 @@ export const useMusicController = () => {
             }
         }
     };
+    const playSongFromIndex = (index: number) => {
+        if (state.queue && state.queue.length > 0) {
+            let song = state.queue[index];
+            let src = song.src;
+            let name = song.name;
+            let artist = song.artist;
+            let cover = song.cover;
+            if (!state.initiallized) {
+                let player = new Audio(src);
+                state.setSongPlayer && state.setSongPlayer(player);
+                state.setInitiallized && state.setInitiallized(true);
+                player.play();
+            } else {
+                state.songPlayer!.src = src;
+                state.songPlayer && state.songPlayer.play();
+            }
+            state.setCurrentSongArt && state.setCurrentSongArt(cover);
+            state.setPlaying && state.setPlaying(true);
+            state.setCurrentSongName && state.setCurrentSongName(name);
+            state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: name,
+                artist: artist,
+                artwork: [{ src: cover }],
+            });
+            navigator.mediaSession.setActionHandler("play", () => {
+                togglePlay();
+            });
+            navigator.mediaSession.setActionHandler("pause", () => {
+                togglePlay();
+            });
+            navigator.mediaSession.setActionHandler("nexttrack", () => {
+                nextSong();
+            });
+            navigator.mediaSession.setActionHandler("previoustrack", () => {
+                nextSong();
+            });
+            navigator.mediaSession.setActionHandler("seekto", (details) => {
+                seek(details.seekTime!);
+            });
+            navigator.mediaSession.setActionHandler("stop", () => {
+                state.songPlayer && state.songPlayer.pause();
+            });
+            navigator.mediaDevices.addEventListener("pause", () => {
+                togglePlay();
+            });
+            navigator.mediaDevices.addEventListener("play", () => {
+                togglePlay();
+            });
+            navigator.mediaDevices.addEventListener("nexttrack", () => {
+                nextSong();
+            });
+            navigator.mediaDevices.addEventListener("previoustrack", () => {
+                nextSong();
+            });
+        }
+    };
     const nextSong = () => {
         if (state.queue && state.queue.length > 0) {
             let nextSongIndex = state.currentSongIndex + 1;
             if (nextSongIndex >= state.queue.length) {
-                nextSongIndex = 0;
+                state.songPlayer && state.songPlayer.pause();
+                state.songPlayer &&
+                    (state.songPlayer.currentTime = state.songPlayer.duration);
+            } else {
+                console.log(state.currentSongIndex);
+                state.setCurrentSongIndex &&
+                    state.setCurrentSongIndex(nextSongIndex);
+                playSongFromIndex(nextSongIndex);
             }
-            state.setCurrentSongIndex &&
-                state.setCurrentSongIndex(nextSongIndex);
-            playSong(
-                state.queue[nextSongIndex].src,
-                state.queue[nextSongIndex].name,
-                state.queue[nextSongIndex].artist,
-                state.queue[nextSongIndex].cover
-            );
+        }
+    };
+    const previousSong = () => {
+        if (state.queue && state.queue.length > 0) {
+            let previousSongIndex = state.currentSongIndex - 1;
+            if (previousSongIndex < 0) {
+                state.songPlayer && state.songPlayer.pause();
+                state.songPlayer && (state.songPlayer.currentTime = 0);
+            } else {
+                state.setCurrentSongIndex &&
+                    state.setCurrentSongIndex(previousSongIndex);
+                playSongFromIndex(previousSongIndex);
+            }
         }
     };
     const seek = (time: number) => {
@@ -132,11 +259,25 @@ export const useMusicController = () => {
             }
         }
     };
+    const setQueue = (
+        queue: {
+            src: string;
+            name: string;
+            artist: string;
+            cover: string;
+        }[]
+    ) => {
+        state.setQueue && state.setQueue([...queue]);
+    };
     return {
         playSong,
         togglePlay,
         nextSong,
+        previousSong,
         seek,
         toggleMute,
+        setQueue,
+        getQueue,
+        setSong,
     };
 };

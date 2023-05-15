@@ -1,7 +1,7 @@
 "use client";
 import MediaControl from "@/components/MediaControl";
 import Sidenav from "@/components/Sidenav";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./globals.css";
 import { MusicControllerContext } from "@/contexts/MusicControllerContext";
 import { useRouter } from 'next/navigation';
@@ -50,7 +50,7 @@ export default function RootLayout({
     state.setVolume = setVolume;
     state.setInitiallized = setInitiallized;
     const router = useRouter();
-    useState(() => {
+    useEffect(() => {
       router.push("/dashboard");
     }, []);
   return (
