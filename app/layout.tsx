@@ -4,6 +4,7 @@ import Sidenav from "@/components/Sidenav";
 import { useContext, useState } from "react";
 import "./globals.css";
 import { MusicControllerContext } from "@/contexts/MusicControllerContext";
+import { useRouter } from 'next/navigation';
 
 export default function RootLayout({
   children,
@@ -48,8 +49,15 @@ export default function RootLayout({
     state.setSongPlayer = setSongPlayer;
     state.setVolume = setVolume;
     state.setInitiallized = setInitiallized;
+    const router = useRouter();
+    useState(() => {
+      router.push("/dashboard");
+    }, []);
   return (
     <html lang="en">
+      <head>
+        <title>Vibe</title>
+      </head>
       <body>
         <Sidenav />
         {children}

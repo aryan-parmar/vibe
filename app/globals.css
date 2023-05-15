@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 @layer components {
+
   /* .sidenav{
     @apply w-20 hover:w-64 transition-all duration-500 ease-in-out overflow-hidden;
   }
@@ -17,17 +18,19 @@
   .sidenav:hover a{
     @apply justify-start;
   } */
-  .bg{
-    background: linear-gradient(360deg,rgba(0,0,0,0.8),rgba(0,0,0,0.4) ,transparent);
+  .bg {
+    background: linear-gradient(360deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), transparent);
   }
 }
-@layer utilities{
-  .custom-grid{
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+
+@layer utilities {
+  .custom-grid-1 {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 250px));
   }
-}
-:root {
-  
+
+  .custom-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 200px));
+  }
 }
 
 ::-webkit-scrollbar {
@@ -71,7 +74,7 @@ body {
 }
 
 body {
-  background: rgba(var(--background-color),1);
+  background: rgba(var(--background-color), 1);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -85,18 +88,26 @@ body {
 }
 
 .input-slider {
-  position: relative;
+  position: relative !important;
+  appearance: none;
   -webkit-appearance: none;
   outline: none;
+  background: #9DA5D0;
+  height: 5px;
+  border-radius: 5px;
+  color: #9DA5D0;  
 }
+
 .input-slider::-webkit-slider-runnable-track {
   width: 100%;
   height: 3px;
   cursor: pointer;
-  background: linear-gradient(to right, rgba(0, 125, 181, 0.6) var(--buffered-width), rgba(0, 125, 181, 0.2) var(--buffered-width));
-  background: linear-gradient(to right, rgba(0, 125, 181, 0.6) var(--buffered-width), rgba(0, 125, 181, 0.2) var(--buffered-width));
+  -webkit-appearance: none;
 }
-.input-slider::before {
+.input-slider::-moz-range-progress{
+  background-color: #9DA5D0;
+}
+.input-slider::before{
   position: absolute;
   content: "";
   top: 0px;
@@ -110,7 +121,7 @@ body {
   position: relative;
   -webkit-appearance: none;
   box-sizing: content-box;
-  border: 1px solid #007db5;
+  border: 1px solid #9DA5D0;
   height: 15px;
   width: 15px;
   border-radius: 50%;
@@ -118,7 +129,7 @@ body {
   cursor: pointer;
   margin: -7px 0 0 0;
 }
+
 .input-slider:active::-webkit-slider-thumb {
-  transform: scale(1.2);
-  background: #007db5;
+  background: #9DA5D0;
 }

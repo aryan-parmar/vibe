@@ -114,9 +114,9 @@ export default function DashboardLayout() {
                     </div>
                 </div>
                 <div className="w-full h-auto pt-11 flex flex-col gap-8 last:pb-24">
-                    <AlbumSection name="Continue listening" data={data} />
-                    <AlbumSection name="Continue listening" data={data2} />
-                    <AlbumSection name="Continue listening" data={data2} />
+                    <AlbumSection name="Continue listening" data={data} type={1}/>
+                    <AlbumSection name="Continue listening" data={data2} type={2}/>
+                    <AlbumSection name="Continue listening" data={data2} type={2}/>
                 </div>
             </div>
         </>

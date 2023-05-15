@@ -83,6 +83,13 @@ export const useMusicController = () => {
         navigator.mediaDevices.addEventListener("previoustrack", () => {
             nextSong();
         });
+        // navigator.mediaDevices.enumerateDevices().then((devices) => {
+        //     devices.forEach((device) => {
+        //         if (device.kind === "audiooutput") {
+        //             console.log(device);
+        //         }
+        //     });
+        // });
     };
     const togglePlay = () => {
         if (state.songPlayer && state.initiallized) {

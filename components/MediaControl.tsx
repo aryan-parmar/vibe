@@ -106,7 +106,7 @@ export default function MediaControl() {
                             type="range"
                             name=""
                             id=""
-                            className="w-full input-slide"
+                            className="w-full input-slider"
                             max={state.currentSongDuration}
                             value={state.currentTime}
                             onChange={(e) =>
