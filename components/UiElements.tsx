@@ -53,7 +53,7 @@ function SearchInput() {
     );
 }
 
-function Button(props: { icon: IconProp | undefined; onClick: () => void, className: string }) {
+function Button(props: { icon: IconProp | undefined; onClick: (e: any) => void, className: string }) {
     return (
         <button className={`rounded-full bg-[rgba(157,165,208,0.2)] flex justify-center items-center ${props.className}`} onClick={props.onClick}>
             {props.icon && (

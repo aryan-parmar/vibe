@@ -17,17 +17,17 @@ let data = [
         artist: "The Weekend",
     },
     {
-        name: "basti ka hasti",
-        cover: "/cover3.jpg",
-        src: "/song.mp3",
-        artist: "basti ka hasti",
-    },
-    {
         name: "this is what falling in love feels",
         cover: "/cover4.jpg",
         src: "/song.mp3",
         artist: "JVKE",
     },
+    {
+        name: "untill i found you",
+        cover: "/cover5.jpeg",
+        src: "https://pagalworlld.com/files/download/id/3909",
+        artist: "Stephan Sanchez",
+    }
 ];
 let data2 = [
     {
@@ -43,10 +43,10 @@ let data2 = [
         artist: "The Weekend",
     },
     {
-        name: "basti ka hasti",
-        cover: "/cover3.jpg",
-        src: "/song.mp3",
-        artist: "basti ka hasti",
+        name: "people",
+        cover: "/cover3.jpeg",
+        src: "https://djmaza.live/siteuploads/files/sfd28/13695/People - Libianca-(DJMaza).mp3",
+        artist: "libianca",
     },
     {
         name: "this is what falling in love feels",
@@ -57,7 +57,7 @@ let data2 = [
     {
         name: "untill i found you",
         cover: "/cover5.jpeg",
-        src: "/song2.mp3",
+        src: "https://pagalworlld.com/files/download/id/3909",
         artist: "Stephan Sanchez",
     },
 ];
