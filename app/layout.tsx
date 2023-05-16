@@ -57,6 +57,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <title>Vibe</title>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1b1434" />
+        <meta name="description" content="Vibe" />
+        <link rel="apple-touch-icon" href="/icons/icon192x192.png" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
         <Sidenav />
