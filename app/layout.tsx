@@ -60,7 +60,7 @@ export default function RootLayout({
       <head>
         <title>Vibe</title>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1b1434" />
+        <meta name="theme-color" content="#21142a" />
         <meta name="description" content="Vibe" />
         <link rel="apple-touch-icon" href="/icons/icon192x192.png" />
         <link rel="icon" href="/favicon.ico" />

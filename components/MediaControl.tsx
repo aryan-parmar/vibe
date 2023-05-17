@@ -99,7 +99,7 @@ export default function MediaControl({view, setView}: {view: boolean, setView: a
                 }`}
                 onClick={() => {
                     if (!view) {
-                        window.history.pushState({}, "", "/dashboard#music");
+                        window.history.pushState({}, "", "#music");
                     }
                     setView(true);
                 }}
