@@ -10,14 +10,18 @@ import {
     faVolumeMute,
     faUpRightAndDownLeftFromCenter,
     faDownLeftAndUpRightToCenter,
-    faSortDown,
+    faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./UiElements";
 
-export default function MediaControl() {
+export default function MediaControl({view, setView}: {view: boolean, setView: any}) {
     let MusicController = useMusicController();
     let state = useContext(MusicControllerContext);
-    let [view, setView] = useState(false);
+    useEffect(() => {
+        window.addEventListener("popstate", () => {
+            setView(false);
+        });
+    }, []);
     // let canvasRef = useRef<HTMLCanvasElement>(null);
     // let audioContext: AudioContext;
     // let analyser: AnalyserNode|null;
@@ -75,8 +79,8 @@ export default function MediaControl() {
     return (
         <>
             <div
-                className={`bg-[#101024] transition-opacity pointer-events-none flex w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 justify-center items-start md:items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
-                    view ? "h-[97vh] opacity-100" : "opacity-0"
+                className={`bg-[#101024] transition-opacity duration-700 pointer-events-none flex w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 justify-center items-start md:items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
+                    view ? "h-[97%] opacity-100 bottom-[10px]" : "opacity-0"
                 }`}
             >
                 <img
@@ -88,23 +92,30 @@ export default function MediaControl() {
                 />
             </div>
             <div
-                className={`w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-all duration-500 ease-in-out ${
+                className={`w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-[height] duration-0 md:duration-500 ease-in-out ${
                     view
-                        ? "h-[97vh] backdrop-blur-3xl bg-[#24222e6c]"
+                        ? "h-[97%] backdrop-blur-3xl bg-[#24222e6c] bottom-[10px]"
                         : "bg-[#24222e]"
                 }`}
-                onClick={() => setView(!view)}
+                onClick={() => {
+                    if (!view) {
+                        window.history.pushState({}, "", "/dashboard#music");
+                    }
+                    setView(true);
+                }}
             >
                 <div
                     className={`flex w-full h-full px-4 items-center ${
                         view
-                            ? "flex-col justify-around md:justify-end mb-8 gap-8"
+                            ? "flex-col justify-start md:justify-end mb-8 gap-8"
                             : "justify-between"
                     }`}
                 >
                     <div
-                        className={`flex items-center gap-4 w-[100%] md:w-auto justify-start md:justify-center ${
-                            view ? "flex-col h-auto mt-16 md:mt-0" : "h-[80%]"
+                        className={`flex items-center gap-4 w-[100%] md:w-auto justify-start md:justify-cente ${
+                            view
+                                ? "flex-col h-auto mt-[40%] md:mt-0"
+                                : "h-full md:flex-[0.25]"
                         }`}
                     >
                         {state.initiallized && (
@@ -113,21 +124,21 @@ export default function MediaControl() {
                                 <img
                                     src={state.currentSongArt}
                                     alt="cover"
-                                    className={`rounded-lg ${
+                                    className={`rounded-lg object-contain ${
                                         view
                                             ? "h-[35vh] md:h-[55vh] w-fit"
-                                            : "h-full w-auto"
+                                            : "h-[80%] w-auto"
                                     }`}
                                 />
                             </>
                         )}
                         <div
-                            className={`flex flex-col justify-center h-full ${
-                                view ? "item-center" : "items-start"
+                            className={`flex flex-col justify-center h-full overflow-hidden ${
+                                view ? "item-center" : "items-start w-[70%]"
                             }`}
                         >
                             <h1
-                                className={`p-0 capitalize font-bold ${
+                                className={`p-0 capitalize font-bold overflow-hidden whitespace-nowrap ${
                                     view ? "text-center text-2xl" : "text-lg"
                                 }`}
                             >
@@ -146,8 +157,8 @@ export default function MediaControl() {
                     <div
                         className={`w-[50%] h-fit flex justify-end md:justify-center items-center md:py-3 ${
                             view
-                                ? "flex-col relative w-[98%] md:w-[50%]"
-                                : "relative md:absolute md:left-1/2 md:-translate-x-1/2 gap-4"
+                                ? "flex-col-reverse gap-5 md:gap-0 md:flex-col relative w-[98%] md:w-[50%]"
+                                : "relative flex-[0.5] gap-4"
                         }`}
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -158,8 +169,10 @@ export default function MediaControl() {
                                     e.stopPropagation();
                                     MusicController.previousSong();
                                 }}
-                                className={`h-8 w-8 ${
-                                    view ? "" : "hidden md:block"
+                                className={` ${
+                                    view
+                                        ? "h-12 w-12"
+                                        : " h-8 w-8 hidden md:block"
                                 }`}
                             />
                             <Button
@@ -173,7 +186,9 @@ export default function MediaControl() {
                                     //     source = audioContext.createMediaElementSource(state.songPlayer as HTMLAudioElement);
                                     // }
                                 }}
-                                className="h-9 w-9 !bg-[rgba(157,165,208,0.4)]"
+                                className={`!bg-[rgba(157,165,208,0.4)]
+                                    ${view ? "h-14 w-14" : "h-10 w-10 md:h-9 md:w-9"}
+                                `}
                             />
                             <Button
                                 icon={faForwardStep}
@@ -181,8 +196,10 @@ export default function MediaControl() {
                                     e.stopPropagation();
                                     MusicController.nextSong();
                                 }}
-                                className={`h-8 w-8 ${
-                                    view ? "" : "hidden md:block"
+                                className={`${
+                                    view
+                                        ? "h-12 w-12"
+                                        : "h-8 w-8 hidden md:block"
                                 }`}
                             />
                         </div>
@@ -246,8 +263,8 @@ export default function MediaControl() {
                     </div>
 
                     <div
-                        className={`h-[80%] justify-center items-center gap-4 ${
-                            view ? "hidden" : "hidden md:flex"
+                        className={`h-[80%] justify-end items-center gap-4 ${
+                            view ? "hidden" : "hidden md:flex flex-[0.25]"
                         }`}
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -259,6 +276,9 @@ export default function MediaControl() {
                         <Button
                             icon={faUpRightAndDownLeftFromCenter}
                             onClick={() => {
+                                if (!view) {
+                                    window.history.pushState({}, "", "/dashboard#music");
+                                }
                                 view ? setView(false) : setView(true);
                                 document
                                     .querySelector("body")!
@@ -270,23 +290,21 @@ export default function MediaControl() {
                 </div>
                 <Button
                     icon={faDownLeftAndUpRightToCenter}
-                    onClick={() => {
-                        HTMLDivElement;
-                        try {
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (document.fullscreenElement)
                             document.exitFullscreen();
-                        } catch (error) {}
-                        view ? setView(false) : setView(true);
+                        history.back();
                     }}
                     className={`h-9 w-9 absolute bottom-6 right-6 ${
                         view ? "hidden md:flex" : "hidden"
                     }`}
                 />
                 <Button
-                    icon={faSortDown}
-                    onClick={() => {
-                        HTMLDivElement;
-                        document.exitFullscreen();
-                        view ? setView(false) : setView(true);
+                    icon={faChevronDown}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        history.back();
                     }}
                     className={`h-9 w-9 absolute top-6 left-6 ${
                         view ? "md:hidden flex" : "hidden"

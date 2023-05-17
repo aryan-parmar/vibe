@@ -22,7 +22,7 @@ export default function Album(props: {
         state.playSong(props.src, props.name, props.artist, props.cover);
     }
     return (
-        <div className="h-full a relative">
+        <div className="h-ful album relative">
             <div
                 className="aspect-square w-[85%] bg-cover rounded-lg overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0 backdrop-brightness-150"
                 ref={coverAmbient}

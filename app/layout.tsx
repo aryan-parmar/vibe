@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import "./globals.css";
 import { MusicControllerContext } from "@/contexts/MusicControllerContext";
 import { useRouter } from 'next/navigation';
+import BottomNav from "@/components/BottomNav";
 
 export default function RootLayout({
   children,
@@ -53,6 +54,7 @@ export default function RootLayout({
     useEffect(() => {
       router.push("/dashboard");
     }, []);
+    let [view, setView] = useState(false)
   return (
     <html lang="en">
       <head>
@@ -67,7 +69,8 @@ export default function RootLayout({
       <body>
         <Sidenav />
         {children}
-        <MediaControl />
+        <MediaControl view={view} setView={setView}/>
+        <BottomNav view={view}/>
       </body>
     </html>
   );

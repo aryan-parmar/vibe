@@ -32,9 +32,28 @@ function NavBtn(props: {
     );
 }
 
-function SearchInput() {
+function NavBtnMobile({
+    icon,
+    url,
+}: {
+    icon: IconProp;
+    url: string;
+}) {
     return (
-        <div className="h-9 flex justify-center items-center rounded-lg bg-[rgba(128,128,128,0.24)] w-96">
+        <Link href={url} className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.1)]">
+            <div className="flex h-full w-full justify-center items-center">
+                <FontAwesomeIcon
+                    icon={icon}
+                    className="text-white h-[20px] w-[20px]"
+                />
+            </div>
+        </Link>
+    );
+}
+
+function SearchInput({className}: {className: string}) {
+    return (
+        <div className={"h-9 flex justify-center items-center rounded-lg bg-[rgba(128,128,128,0.24)] w-full md:w-96 "+className}>
             <label
                 htmlFor="search"
                 className="h-full flex gap-1 justify-center items-center pl-3"
@@ -53,9 +72,16 @@ function SearchInput() {
     );
 }
 
-function Button(props: { icon: IconProp | undefined; onClick: (e: any) => void, className: string }) {
+function Button(props: {
+    icon: IconProp | undefined;
+    onClick: (e: any) => void;
+    className: string;
+}) {
     return (
-        <button className={`rounded-full bg-[rgba(157,165,208,0.2)] flex justify-center items-center ${props.className}`} onClick={props.onClick}>
+        <button
+            className={`rounded-full bg-[rgba(157,165,208,0.2)] flex justify-center items-center ${props.className}`}
+            onClick={props.onClick}
+        >
             {props.icon && (
                 <FontAwesomeIcon
                     icon={props.icon}
@@ -66,4 +92,4 @@ function Button(props: { icon: IconProp | undefined; onClick: (e: any) => void, 
     );
 }
 
-export { NavBtn, SearchInput, Button };
+export { NavBtn, SearchInput, Button, NavBtnMobile };
