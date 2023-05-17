@@ -106,7 +106,7 @@ export default function DashboardLayout() {
                     <h2 className="logo text-3xl block md:hidden w-full text-center">Vibe</h2>
                     <SearchInput className="hidden md:flex"/>
                 </div>
-                <div className="w-full h-[75%] md:h-[90%] pt-4 flex flex-col gap-8 last:pb-16 md:last:pb-24 overflow-y-auto overflow-x-hidden">
+                <div className="w-full h-[80%] md:h-[90%] pt-4 flex flex-col gap-8 last:pb-16 md:last:pb-24 overflow-y-auto overflow-x-hidden">
                     <AlbumSection name="Continue listening" data={data} type={1}/>
                     <AlbumSection name="Continue listening" data={data2} type={2}/>
                     <AlbumSection name="Continue listening" data={data3} type={2}/>
