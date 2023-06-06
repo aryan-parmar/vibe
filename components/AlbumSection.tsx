@@ -23,6 +23,8 @@ export default function AlbumSection(props: {
                             cover={item.cover}
                             artist={item.artist}
                             src={item.src}
+                            playlist={item.playlist}
+                            _id={item._id}
                             key={index}
                         />
                     ))}

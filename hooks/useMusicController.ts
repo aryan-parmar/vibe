@@ -239,7 +239,6 @@ export const useMusicController = () => {
                 state.songPlayer &&
                     (state.songPlayer.currentTime = state.songPlayer.duration);
             } else {
-                console.log(state.currentSongIndex);
                 state.setCurrentSongIndex &&
                     state.setCurrentSongIndex(nextSongIndex);
                 playSongFromIndex(nextSongIndex);

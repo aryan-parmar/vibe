@@ -6,11 +6,11 @@ import Link from "next/link";
 function NavBtn(props: {
     icon: IconProp | undefined;
     text: string;
-    href: string | undefined;
+    href: string;
 }) {
     return (
         <Link
-            href={""}
+            href={props.href}
             className="w-[83%] flex justify-start items-center gap-3 bg-[rgba(66,66,66,0.4)] rounded-lg"
         >
             {props.icon ? (
@@ -40,7 +40,7 @@ function NavBtnMobile({
     url: string;
 }) {
     return (
-        <Link href={url} className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.1)]">
+        <Link href={url} className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.25)]">
             <div className="flex h-full w-full justify-center items-center">
                 <FontAwesomeIcon
                     icon={icon}

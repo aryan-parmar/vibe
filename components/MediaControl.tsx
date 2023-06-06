@@ -13,8 +13,15 @@ import {
     faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./UiElements";
+import { Palette, usePalette } from "color-thief-react";
 
-export default function MediaControl({view, setView}: {view: boolean, setView: any}) {
+export default function MediaControl({
+    view,
+    setView,
+}: {
+    view: boolean;
+    setView: any;
+}) {
     let MusicController = useMusicController();
     let state = useContext(MusicControllerContext);
     useEffect(() => {
@@ -61,6 +68,7 @@ export default function MediaControl({view, setView}: {view: boolean, setView: a
 
     //     }
     // }, [state.currentSongName, state.currentSongArt, state.currentSongArtist]);
+    let [imageColors, setImageColors] = useState<any>();
     useEffect(() => {
         if (state.initiallized) {
             let input = document.querySelector(
@@ -90,6 +98,18 @@ export default function MediaControl({view, setView}: {view: boolean, setView: a
                         view ? "h-[60vh] opacity-100" : "h-0 opacity-0"
                     }`}
                 />
+                <Palette src={state.currentSongArt} colorCount={4} format="hex">
+                    {({ data, loading, error }) => (
+                        data &&
+                        <div
+                            style={{ background: `radial-gradient(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})` }}
+                            className={`w-[70vh] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute hidden md:block ${
+                                view ? "h-[60vh] opacity-50" : "h-0 opacity-0"
+                            }`}
+                        >
+                        </div>
+                    )}
+                </Palette>
             </div>
             <div
                 className={`w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-[height] duration-0 md:duration-500 ease-in-out ${
@@ -187,7 +207,11 @@ export default function MediaControl({view, setView}: {view: boolean, setView: a
                                     // }
                                 }}
                                 className={`!bg-[rgba(157,165,208,0.4)]
-                                    ${view ? "h-14 w-14" : "h-10 w-10 md:h-9 md:w-9"}
+                                    ${
+                                        view
+                                            ? "h-14 w-14"
+                                            : "h-10 w-10 md:h-9 md:w-9"
+                                    }
                                 `}
                             />
                             <Button
@@ -277,7 +301,11 @@ export default function MediaControl({view, setView}: {view: boolean, setView: a
                             icon={faUpRightAndDownLeftFromCenter}
                             onClick={() => {
                                 if (!view) {
-                                    window.history.pushState({}, "", "/dashboard#music");
+                                    window.history.pushState(
+                                        {},
+                                        "",
+                                        "/dashboard#music"
+                                    );
                                 }
                                 view ? setView(false) : setView(true);
                                 document

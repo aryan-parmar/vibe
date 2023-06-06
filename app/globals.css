@@ -83,7 +83,18 @@ body {
 .logo {
   font-family: 'Leckerli One', cursive;
 }
-
+.album{
+  overflow: hidden;
+}
+.play-btn{
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.1s ease-in-out;
+}
+.album:hover .play-btn{
+  opacity: 1;
+  transform: translateX(0%);
+}
 .input-slider {
   position: relative !important;
   appearance: none;
@@ -136,6 +147,12 @@ body {
   grid-template-rows: auto 0px;
   overflow-y: hidden;
   overflow-x: scroll;
+}
+.custom-grid-1 .album:nth-child(n + 5){
+  display: none;
+}
+.custom-grid .album:nth-child(n + 6){
+  display: none;
 }
 
 

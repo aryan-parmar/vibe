@@ -14,7 +14,7 @@ const Sidenav = () => {
                                 key={index}
                                 icon={undefined}
                                 text={item.text}
-                                href={item.image}
+                                href={item.url}
                             />
                         );
                     } else {
@@ -23,7 +23,7 @@ const Sidenav = () => {
                                 key={index}
                                 icon={item.icon==="faHouse" ? faHouse : item.icon==="faMusic" ? faMusic : faHeart}
                                 text={item.text}
-                                href={""}
+                                href={item.url}
                             />
                         );
                     }

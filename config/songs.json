@@ -1,0 +1,58 @@
+[
+    {
+        "name": "Cupid - twin ver.",
+        "cover": "/cover8.png",
+        "src": "https://www.tuttotone.download/Downloads/b/9/4/b/e/4/c/4/f/d/4/9/2/a/4/5/0/4/9/0/9/5/7/4/b/b/5/9/c/e/c/9/FIFTY_FIFTY_-_Cupid_Twin_Version_Lyrics.mp3",
+        "artist": "FIFTY FIFTY",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "landslide",
+        "cover": "/cover6.jpg",
+        "src": "https://www.trendmusics.com/wp-content/uploads/2022/06/Landslide_-_Oh_Wonder_trendmusics.com.mp3",
+        "artist": "Oh wonder",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "starboy",
+        "cover": "/cover2.jpg",
+        "src": "/song.mp3",
+        "artist": "The Weekend",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "this is what falling in love feels",
+        "cover": "/cover4.jpg",
+        "src": "/song.mp3",
+        "artist": "JVKE",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "untill i found you",
+        "cover": "/cover5.jpeg",
+        "src": "https://pagalworlld.com/files/download/id/3909",
+        "artist": "Stephan Sanchez",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "people",
+        "cover": "/cover3.jpeg",
+        "src": "https://djmaza.live/siteuploads/files/sfd28/13695/People - Libianca-(DJMaza).mp3",
+        "artist": "libianca",
+        "playlist": "playlist1",
+        "_id": "1234"
+    },
+    {
+        "name": "Dil nu",
+        "cover": "/cover7.jpg",
+        "src": "https://cdnsongs.com/dren/music/data/Punjabi/202210/Two_Hearts_Never_Break_The_Same_EP/320/Dil_Nu.mp3/Dil Nu.mp3",
+        "artist": "AP Dhillon",
+        "playlist": "playlist1",
+        "_id": "1234"
+    }
+]
