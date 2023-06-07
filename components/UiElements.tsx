@@ -1,9 +1,17 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBold, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+    faHeart,
+    faMagnifyingGlass,
+    faPlay,
+} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
+import { useState } from "react";
+import { useMusicController } from "@/hooks/useMusicController";
 
 function NavBtn(props: {
+    image?: string;
     icon: IconProp | undefined;
     text: string;
     href: string;
@@ -20,7 +28,7 @@ function NavBtn(props: {
                 />
             ) : (
                 <img
-                    src={props.href}
+                    src={props.image}
                     alt={"profile"}
                     height={20}
                     width={20}
@@ -32,15 +40,12 @@ function NavBtn(props: {
     );
 }
 
-function NavBtnMobile({
-    icon,
-    url,
-}: {
-    icon: IconProp;
-    url: string;
-}) {
+function NavBtnMobile({ icon, url }: { icon: IconProp; url: string }) {
     return (
-        <Link href={url} className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.25)]">
+        <Link
+            href={url}
+            className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.25)]"
+        >
             <div className="flex h-full w-full justify-center items-center">
                 <FontAwesomeIcon
                     icon={icon}
@@ -51,9 +56,14 @@ function NavBtnMobile({
     );
 }
 
-function SearchInput({className}: {className: string}) {
+function SearchInput({ className }: { className: string }) {
     return (
-        <div className={"h-9 flex justify-center items-center rounded-lg bg-[rgba(128,128,128,0.24)] w-full md:w-96 "+className}>
+        <div
+            className={
+                "h-9 flex justify-center items-center rounded-lg bg-[rgba(128,128,128,0.24)] w-full md:w-96 " +
+                className
+            }
+        >
             <label
                 htmlFor="search"
                 className="h-full flex gap-1 justify-center items-center pl-3"
@@ -92,4 +102,69 @@ function Button(props: {
     );
 }
 
-export { NavBtn, SearchInput, Button, NavBtnMobile };
+function MusicButton(props: {
+    playlist:
+        | {
+              name: string;
+              cover: string;
+              src: string;
+              artist: string;
+              playlist: string;
+              _id: string;
+          }
+        | undefined;
+}) {
+    const [liked, setLiked] = useState(false);
+    let state = useMusicController();
+    function play() {
+        console.log("play");
+        state.playSong(
+            props.playlist!.src,
+            props.playlist!.name,
+            props.playlist!.artist,
+            props.playlist!.cover
+        );
+    }
+    return (
+        <>
+            {props.playlist && (
+                <div className="w-full h-14 rounded-md bg-[rgba(157,165,208,0.2)] flex justify-between items-center gap-6 px-6">
+                    <Button
+                        icon={faPlay}
+                        onClick={() => {
+                            play();
+                        }}
+                        className="h-9 w-9"
+                    />
+                    <div className="flex flex-col justify-center items-start flex-1">
+                        <h3 className="text-white font-semibold text-lg">
+                            {props.playlist.name}
+                        </h3>
+                        <h4 className="text-[#ffffff80]">
+                            {props.playlist.artist}
+                        </h4>
+                    </div>
+                    {liked ? (
+                        <FontAwesomeIcon
+                            icon={faHeart}
+                            className="text-[#D09DA6] text-2xl cursor-pointer"
+                            onClick={() => {
+                                setLiked(false);
+                            }}
+                        />
+                    ) : (
+                        <FontAwesomeIcon
+                            icon={faHeartRegular}
+                            className="text-[#D09DA6] text-2xl cursor-pointer"
+                            onClick={() => {
+                                setLiked(true);
+                            }}
+                        />
+                    )}
+                </div>
+            )}
+        </>
+    );
+}
+
+export { NavBtn, SearchInput, Button, NavBtnMobile, MusicButton };

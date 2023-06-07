@@ -11,6 +11,7 @@ const Sidenav = () => {
                     if (item.image) {
                         return (
                             <NavBtn
+                                image={item.image}
                                 key={index}
                                 icon={undefined}
                                 text={item.text}

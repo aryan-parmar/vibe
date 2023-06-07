@@ -284,7 +284,18 @@ export const useMusicController = () => {
     ) => {
         state.setQueue && state.setQueue([...queue]);
     };
-
+    const enqueue = (playlist: [{
+        src: string;
+        name: string;
+        artist: string;
+        cover: string;
+    }]) => {
+        state.setQueue &&
+            state.setQueue([
+                ...state.queue,
+                ...playlist
+            ]);
+    };
     return {
         init,
         playSong,
@@ -296,5 +307,6 @@ export const useMusicController = () => {
         setQueue,
         getQueue,
         setSong,
+        enqueue,
     };
 };
