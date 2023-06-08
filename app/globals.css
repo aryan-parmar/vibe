@@ -62,6 +62,7 @@ body {
   justify-content: center;
   /* background: linear-gradient(109.6deg, rgb(12, 17, 28) 11.2%, #171c24 91.1%) */
   background-image: url(/bg.png);
+  color: #ffffff;
 }
 
 
