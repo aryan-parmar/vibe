@@ -29,46 +29,45 @@ export default function MediaControl({
             setView(false);
         });
     }, []);
-    // let canvasRef = useRef<HTMLCanvasElement>(null);
-    // let audioContext: AudioContext;
-    // let analyser: AnalyserNode|null;
-    // let source: MediaElementAudioSourceNode|null;
-    // function renderFrame(x: number, analyser: AnalyserNode, dataArray: Uint8Array, canvasCtx: any, WIDTH: number, HEIGHT: number, barWidth:number, barHeight:number, bufferLength: number) {
-    //     requestAnimationFrame(()=>{renderFrame(x, analyser, dataArray, canvasCtx, WIDTH, HEIGHT, barWidth, barHeight, bufferLength)});
-    //     x = 0;
-    //     analyser.getByteFrequencyData(dataArray);
-    //     canvasCtx.fillStyle = "#24222e";
-    //     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    //     for (let i = 0; i < bufferLength; i++) {
-    //         barHeight = dataArray[i];
-    //         let r = barHeight + 25 * (i / bufferLength);
-    //         let g = 250 * (i / bufferLength);
-    //         let b = 50;
-    //         canvasCtx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-    //         canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-    //         x += barWidth + 1;
+    let [imageColors, setImageColors] = useState<any>();
+    // let canvas = useRef<HTMLCanvasElement>(null);
+    // let ctx: CanvasRenderingContext2D | null;
+    // let bufferLength: number | undefined;
+    // let dataArray: Uint8Array;
+    // let barWidth: number;
+    // useEffect(() => {
+    //     console.log(state.analyser);
+    //     if (canvas.current && state.analyser) {
+    //         if (canvas && canvas.current) {
+    //             ctx = canvas.current?.getContext("2d");
+    //             bufferLength = state.analyser?.frequencyBinCount;
+    //             dataArray = new Uint8Array(bufferLength!);
+    //             barWidth = canvas.current.width / bufferLength!;
+    //             animate();
+    //         }
+    //     }
+    // }, [canvas, state.analyser]);
+    // function animate() {
+    //     if (bufferLength && barWidth && dataArray && ctx && canvas.current) {
+    //         let x = 0;
+    //         ctx?.clearRect(0, 0, canvas.current!.width, canvas.current!.height);
+    //         state.analyser?.getByteFrequencyData(dataArray);
+    //         for (let i = 0; i < bufferLength; i++) {
+    //             let barHeight = dataArray[i];
+    //             ctx.fillStyle = "red";
+    //             ctx.fillRect(
+    //                 x,
+    //                 canvas.current.height - barHeight,
+    //                 barWidth,
+    //                 barHeight
+    //             );
+    //             console.log(barHeight);
+    //             x += barWidth;
+    //         }
+    //         requestAnimationFrame(animate);
     //     }
     // }
-    // useEffect(() => {
-    //     if (state.initiallized && analyser && source) {
-    //         source.connect(analyser);
-    //         analyser.connect(audioContext.destination);
-    //         analyser.fftSize = 256;
-    //         let bufferLength = analyser.frequencyBinCount;
-    //         let dataArray = new Uint8Array(bufferLength);
-    //         let canvas = canvasRef.current as HTMLCanvasElement;
-    //         let canvasCtx = canvas.getContext("2d") as CanvasRenderingContext2D;
-    //         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-    //         let WIDTH = canvas.width;
-    //         let HEIGHT = canvas.height;
-    //         let barWidth = (WIDTH / bufferLength) * 2.5;
-    //         let barHeight = 10;
-    //         let x = 0;
-    //         renderFrame(x,analyser, dataArray, canvasCtx, WIDTH, HEIGHT, barWidth, barHeight, bufferLength);
 
-    //     }
-    // }, [state.currentSongName, state.currentSongArt, state.currentSongArtist]);
-    let [imageColors, setImageColors] = useState<any>();
     useEffect(() => {
         if (state.initiallized) {
             let input = document.querySelector(
@@ -99,16 +98,20 @@ export default function MediaControl({
                     }`}
                 />
                 <Palette src={state.currentSongArt} colorCount={4} format="hex">
-                    {({ data, loading, error }) => (
-                        data &&
-                        <div
-                            style={{ background: `radial-gradient(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})` }}
-                            className={`md:w-[70vh] w-[70vw] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute block ${
-                                view ? "h-[60vh] opacity-50" : "h-0 opacity-0"
-                            }`}
-                        >
-                        </div>
-                    )}
+                    {({ data, loading, error }) =>
+                        data && (
+                            <div
+                                style={{
+                                    background: `radial-gradient(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`,
+                                }}
+                                className={`md:w-[70vh] w-[70vw] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute block ${
+                                    view
+                                        ? "h-[60vh] opacity-50"
+                                        : "h-0 opacity-0"
+                                }`}
+                            ></div>
+                        )
+                    }
                 </Palette>
             </div>
             <div
@@ -140,7 +143,12 @@ export default function MediaControl({
                     >
                         {state.initiallized && (
                             <>
-                                {/* <canvas ref={canvasRef} width={500} height={200} /> */}
+                                {/* <canvas
+                                    ref={canvas}
+                                    width={500}
+                                    height={200}
+                                    className="bg-white"
+                                /> */}
                                 <img
                                     src={state.currentSongArt}
                                     alt="cover"

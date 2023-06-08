@@ -15,11 +15,12 @@ function NavBtn(props: {
     icon: IconProp | undefined;
     text: string;
     href: string;
+    className?: string;
 }) {
     return (
         <Link
             href={props.href}
-            className="w-[83%] flex justify-start items-center gap-3 bg-[rgba(66,66,66,0.4)] rounded-lg"
+            className={"w-[83%] flex justify-start items-center gap-3 bg-[rgba(66,66,66,0.4)] rounded-lg "+ props.className}
         >
             {props.icon ? (
                 <FontAwesomeIcon
@@ -86,7 +87,8 @@ function SearchInput({ className }: { className: string }) {
 }
 
 function Button(props: {
-    icon: IconProp | undefined;
+    icon?: IconProp;
+    image?: string;
     onClick: (e: any) => void;
     className: string;
 }) {
@@ -94,8 +96,15 @@ function Button(props: {
         <button
             className={`rounded-full bg-[rgba(157,165,208,0.2)] flex justify-center items-center ${props.className}`}
             onClick={props.onClick}
-        >
-            {props.icon && (
+        >   {props.image ?
+            <img
+                src={props.image}
+                alt={"profile"}
+                height={20}
+                width={20}
+                className="object-cover h-[98%] w-[98%] rounded-full border-2 border-white"
+            /> :
+            props.icon && (
                 <FontAwesomeIcon
                     icon={props.icon}
                     className="text-white h-[45%]"

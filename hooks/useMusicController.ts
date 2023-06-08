@@ -34,6 +34,8 @@ export const useMusicController = () => {
     ) => {
         if (!state.initiallized) {
             let player = new Audio();
+            
+
             state.setSongPlayer && state.setSongPlayer(player);
             state.setInitiallized && state.setInitiallized(true);
             setQueue(queue);
@@ -116,6 +118,7 @@ export const useMusicController = () => {
         cover: string
     ) => {
         setQueue([{ src, name, artist, cover }]);
+        
         if (state.queue && state.queue.length > 0) {
             if (!state.initiallized) {
                 let player = new Audio(src);
@@ -126,6 +129,19 @@ export const useMusicController = () => {
                 state.songPlayer!.src = src;
                 state.songPlayer && state.songPlayer.play();
             }
+            // if(!state.analyser){
+            //     let audioContext = new AudioContext();
+            //     let source: MediaElementAudioSourceNode
+            //     source = audioContext.createMediaElementSource(state.songPlayer!);
+            //     let analyser = audioContext.createAnalyser();
+            //     source.connect(analyser)
+            //     analyser.connect(audioContext.destination)
+            //     analyser.fftSize = 128;
+            //     state.setAnalyser && state.setAnalyser(analyser);
+            //     state.setAudioContext && state.setAudioContext(audioContext);
+            // }
+
+
             state.setCurrentSongArt && state.setCurrentSongArt(cover);
             state.setPlaying && state.setPlaying(true);
             state.setCurrentSongName && state.setCurrentSongName(name);

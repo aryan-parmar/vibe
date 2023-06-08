@@ -13,6 +13,8 @@ interface MusicControllerState {
     initiallized: any;
     volume: any;
     songPlayer: HTMLAudioElement | null;
+    analyser: AnalyserNode | null;
+    audioContext: AudioContext | null;
 
     setPlaying: Dispatch<any> | null;
     setQueue: Dispatch<any> | null;
@@ -26,6 +28,8 @@ interface MusicControllerState {
     setVolume: Dispatch<any> | null;
     setSongPlayer: Dispatch<any> | null;
     setCurrentTime: Dispatch<any> | null;
+    setAnalyser: Dispatch<any> | null;
+    setAudioContext: Dispatch<any> | null;
 }
 
 export const MusicControllerContext = createContext<MusicControllerState>({
@@ -41,6 +45,9 @@ export const MusicControllerContext = createContext<MusicControllerState>({
     volume: null,
     songPlayer: null,
     initiallized: false,
+    analyser: null,
+    audioContext: null,
+    
     setPlaying: null,
     setQueue: null,
     setCurrentSongName: null,
@@ -53,4 +60,6 @@ export const MusicControllerContext = createContext<MusicControllerState>({
     setVolume: null,
     setSongPlayer: null,
     setCurrentTime: null,
+    setAnalyser: null,
+    setAudioContext: null,
 });

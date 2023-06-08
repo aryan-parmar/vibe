@@ -28,6 +28,8 @@ export default function RootLayout({
     const [songPlayer, setSongPlayer] = useState<HTMLAudioElement | null>(null);
     const [initiallized, setInitiallized] = useState(false);
     const [volume, setVolume] = useState(0.5);
+    const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
+    const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
     state.playing = playing;
     state.queue = queue;
     state.currentSongName = currentSongName;
@@ -40,6 +42,8 @@ export default function RootLayout({
     state.volume = volume;
     state.initiallized = initiallized;
     state.currentTime = currentTime;
+    state.analyser = analyser;
+    state.audioContext = audioContext;
 
     state.setCurrentTime = setCurrentTime;
     state.setPlaying = setPlaying;
@@ -53,6 +57,8 @@ export default function RootLayout({
     state.setSongPlayer = setSongPlayer;
     state.setVolume = setVolume;
     state.setInitiallized = setInitiallized;
+    state.setAnalyser = setAnalyser;
+    state.setAudioContext = setAudioContext;
 
     let [show, setShow] = useState(false);
     let [text, setText] = useState("");

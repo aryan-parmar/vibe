@@ -65,13 +65,13 @@ export default function Page({ params }: { params: PlaylistId }) {
                                             style={{
                                                 background: `linear-gradient(to right, ${data[0]} 0%, ${data[1]} 8%, ${data[2]} 17%, ${data[3]} 25%, transparent 100%)`,
                                             }}
-                                            className={`w-[40%] h-36 rounded-lg left- absolute hidden md:block`}
+                                            className={`md:w-[40%] md:h-36 h-[90vw] w-[30vh] md:top-0 -top-12 md:left-0 left-1/2 md:translate-x-0 -translate-x-1/2 rounded-lg rotate-90 md:rotate-0 absolute md:block`}
                                         ></div>
                                     )
                                 }
                             </Palette>
                         )}
-                        <div className="pt-2 pl-2 rounded-lg backdrop-blur-3xl z-10 w-full flex md:h-60 items-center justify-center md:justify-start md:gap-6 gap-3 md:flex-row flex-col">
+                        <div className="md:pt-2 pt-6 pl-2 rounded-lg backdrop-blur-3xl z-10 w-full flex md:h-60 items-center justify-center md:justify-start md:gap-6 gap-3 md:flex-row flex-col">
                             <img
                                 src={playlist?.cover}
                                 alt="cover"
@@ -135,7 +135,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                 </div>
                             </div>
                         </div>
-                        <hr className="w-full md:w-[94%] md:border-2 border-[2px] rounded-lg border-[#9da5d080] md:mt-6" />
+                        <hr className="w-full md:w-[94%] md:border-2 border-[0px] rounded-lg border-[#9da5d080] md:mt-6" />
                         <div className="w-full md:w-[94%] flex flex-col gap-4 h-auto">
                             <MusicButton playlist={playlist} />
                         </div>
