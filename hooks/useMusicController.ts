@@ -1,8 +1,10 @@
 import { useContext, useEffect } from "react";
 import { MusicControllerContext } from "../contexts/MusicControllerContext";
+import { useNotification } from "./useNotification";
 
 export const useMusicController = () => {
     const state = useContext(MusicControllerContext);
+    const notification = useNotification();
     useEffect(() => {
         if (state.songPlayer) {
             state.songPlayer.addEventListener("ended", () => {
@@ -284,17 +286,18 @@ export const useMusicController = () => {
     ) => {
         state.setQueue && state.setQueue([...queue]);
     };
-    const enqueue = (playlist: [{
-        src: string;
-        name: string;
-        artist: string;
-        cover: string;
-    }]) => {
-        state.setQueue &&
-            state.setQueue([
-                ...state.queue,
-                ...playlist
-            ]);
+    const enqueue = (
+        playlist: [
+            {
+                src: string;
+                name: string;
+                artist: string;
+                cover: string;
+            }
+        ]
+    ) => {
+        state.setQueue && state.setQueue([...state.queue, ...playlist]);
+        notification.addNotification("Added to queue");
     };
     return {
         init,

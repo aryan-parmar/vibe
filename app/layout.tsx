@@ -4,15 +4,18 @@ import Sidenav from "@/components/Sidenav";
 import { useContext, useEffect, useState } from "react";
 import "./globals.css";
 import { MusicControllerContext } from "@/contexts/MusicControllerContext";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import BottomNav from "@/components/BottomNav";
+import { NotificationContext } from "@/contexts/NotificationContext";
+import Notification from "@/components/Notification";
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  const state = useContext(MusicControllerContext);
+    const state = useContext(MusicControllerContext);
+    const NotificationCtx = useContext(NotificationContext);
     const [playing, setPlaying] = useState(false);
     const [queue, setQueue] = useState<object[]>([]);
     const [currentSongName, setCurrentSongName] = useState("");
@@ -37,7 +40,7 @@ export default function RootLayout({
     state.volume = volume;
     state.initiallized = initiallized;
     state.currentTime = currentTime;
-    
+
     state.setCurrentTime = setCurrentTime;
     state.setPlaying = setPlaying;
     state.setQueue = setQueue;
@@ -50,28 +53,43 @@ export default function RootLayout({
     state.setSongPlayer = setSongPlayer;
     state.setVolume = setVolume;
     state.setInitiallized = setInitiallized;
+
+    let [show, setShow] = useState(false);
+    let [text, setText] = useState("");
+
+    NotificationCtx.show = show;
+    NotificationCtx.text = text;
+
+    NotificationCtx.setShow = setShow;
+    NotificationCtx.setText = setText;
+
     const router = useRouter();
     useEffect(() => {
-      router.push("/dashboard");
+        if(window.location.pathname == "/")
+            router.push("/dashboard");
     }, []);
-    let [view, setView] = useState(false)
-  return (
-    <html lang="en">
-      <head>
-        <title>Vibe</title>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#21142a" />
-        <meta name="description" content="Vibe" />
-        <link rel="apple-touch-icon" href="/icons/icon192x192.png" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body>
-        <Sidenav />
-        {children}
-        <MediaControl view={view} setView={setView}/>
-        <BottomNav view={view}/>
-      </body>
-    </html>
-  );
+    let [view, setView] = useState(false);
+    return (
+        <html lang="en">
+            <head>
+                <title>Vibe</title>
+                <link rel="manifest" href="/manifest.json" />
+                <meta name="theme-color" content="#21142a" />
+                <meta name="description" content="Vibe" />
+                <link rel="apple-touch-icon" href="/icons/icon192x192.png" />
+                <link rel="icon" href="/favicon.ico" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+            </head>
+            <body>
+                <Notification />
+                <Sidenav />
+                {children}
+                <MediaControl view={view} setView={setView} />
+                <BottomNav view={view} />
+            </body>
+        </html>
+    );
 }

@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Palette } from "color-thief-react";
 
 interface PlaylistId {
     id: string;
@@ -50,13 +51,31 @@ export default function Page({ params }: { params: PlaylistId }) {
     return (
         <>
             <Loading loading={loading}>
-                <MainDashboardLayout>
-                    <div className="w-full h-full pb-4 flex flex-col gap-10">
-                        <div className="w-full flex md:h-60 items-center justify-center md:justify-start gap-6 md:flex-row flex-col">
+                <MainDashboardLayout className="relative">
+                    <div className="w-full h-max pb-10 flex flex-col md:gap-10 gap-4 relative ">
+                        {playlist?.cover && (
+                            <Palette
+                                src={playlist?.cover}
+                                colorCount={4}
+                                format="hex"
+                            >
+                                {({ data, loading, error }) =>
+                                    data && (
+                                        <div
+                                            style={{
+                                                background: `linear-gradient(to right, ${data[0]} 0%, ${data[1]} 8%, ${data[2]} 17%, ${data[3]} 25%, transparent 100%)`,
+                                            }}
+                                            className={`w-[40%] h-36 rounded-lg left- absolute hidden md:block`}
+                                        ></div>
+                                    )
+                                }
+                            </Palette>
+                        )}
+                        <div className="pt-2 pl-2 rounded-lg backdrop-blur-3xl z-10 w-full flex md:h-60 items-center justify-center md:justify-start md:gap-6 gap-3 md:flex-row flex-col">
                             <img
                                 src={playlist?.cover}
                                 alt="cover"
-                                className="w-auto md:h-full h-[70%] rounded-lg"
+                                className="w-auto md:h-full h-[30svh] rounded-lg"
                             />
                             <div className="flex flex-col gap-3 overflow-x-hidden w-full h-full items-center md:items-start">
                                 <div className="flex items-center md:justify-start justify-center gap-4 w-full">
@@ -83,7 +102,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         />
                                     )}
                                 </div>
-                                <h2 className="md:text-xl font-bold opacity-70 p-0 m-0">
+                                <h2 className="md:text-xl text-xl font-bold opacity-70 p-0 m-0">
                                     {playlist?.artist}
                                 </h2>
                                 <div className="flex items-center justify-between gap-3 w-fit">
@@ -96,7 +115,9 @@ export default function Page({ params }: { params: PlaylistId }) {
                                     />
                                     <Button
                                         icon={faPlus}
-                                        onClick={() => {state.enqueue([playlist!])}}
+                                        onClick={() => {
+                                            state.enqueue([playlist!]);
+                                        }}
                                         className="md:h-9 md:w-9 h-12 w-12"
                                     />
                                     <Button
@@ -106,15 +127,15 @@ export default function Page({ params }: { params: PlaylistId }) {
                                                 title: playlist?.name,
                                                 text: playlist?.artist,
                                                 url: window.location.href,
-                                            } 
-                                            navigator.share(d)
+                                            };
+                                            navigator.share(d);
                                         }}
                                         className="md:h-9 md:w-9 h-12 w-12"
                                     />
                                 </div>
                             </div>
                         </div>
-                        <hr className="w-full md:w-[94%] border-2 rounded-lg border-[#9da5d080] md:mt-6" />
+                        <hr className="w-full md:w-[94%] md:border-2 border-[2px] rounded-lg border-[#9da5d080] md:mt-6" />
                         <div className="w-full md:w-[94%] flex flex-col gap-4 h-auto">
                             <MusicButton playlist={playlist} />
                         </div>
