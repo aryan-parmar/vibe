@@ -145,7 +145,8 @@ body {
   gap: 3.75%;
   align-items: center;
   grid-template-rows: auto 0px;
-  overflow-y: hidden;
+  overflow-y: visible;
+  height: 90%;
   overflow-x: scroll;
 }
 .custom-grid-1 .album:nth-child(n + 5){

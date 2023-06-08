@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import data from "@/config/songs.json";
 import MainDashboardLayout from "@/components/MainDashboardLayout";
 let data2 = data;
-let data3 = data.slice(2, 8);
+let data3 = data.slice(-5, );
 
 export default function DashboardLayout() {
     let MusicController = useMusicController();

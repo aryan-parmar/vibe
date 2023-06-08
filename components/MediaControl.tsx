@@ -103,7 +103,7 @@ export default function MediaControl({
                         data &&
                         <div
                             style={{ background: `radial-gradient(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})` }}
-                            className={`w-[70vh] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute hidden md:block ${
+                            className={`md:w-[70vh] w-[70vw] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute block ${
                                 view ? "h-[60vh] opacity-50" : "h-0 opacity-0"
                             }`}
                         >
@@ -127,12 +127,12 @@ export default function MediaControl({
                 <div
                     className={`flex w-full h-full px-4 items-center ${
                         view
-                            ? "flex-col justify-start md:justify-end mb-8 gap-8"
+                            ? "flex-col justify-start md:justify-end mb-8 md:gap-8 gap-12"
                             : "justify-between"
                     }`}
                 >
                     <div
-                        className={`flex items-center gap-4 w-[100%] md:w-auto justify-start md:justify-cente ${
+                        className={`flex items-center gap-4 w-[100%] md:w-auto justify-start md:justify-center ${
                             view
                                 ? "flex-col h-auto mt-[40%] md:mt-0"
                                 : "h-full md:flex-[0.25]"

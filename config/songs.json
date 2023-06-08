@@ -54,5 +54,13 @@
         "artist": "AP Dhillon",
         "playlist": "playlist1",
         "_id": "7"
+    },
+    {
+        "name": "Golden Hour",
+        "cover": "/cover9.jpg",
+        "src": "https://flexyokayfile.xyz/files/2022/09/JVKE_-_golden_hour_FlexyOkay.com.mp3",
+        "artist": "JVKE",
+        "playlist": "playlist1",
+        "_id": "8"
     }
 ]

@@ -45,6 +45,9 @@ function NavBtnMobile({ icon, url }: { icon: IconProp; url: string }) {
         <Link
             href={url}
             className="w-full h-full rounded-2xl bg-[rgba(66,66,66,0.25)]"
+            onClick={() => {
+                navigator.vibrate(50);
+            }}
         >
             <div className="flex h-full w-full justify-center items-center">
                 <FontAwesomeIcon
