@@ -132,7 +132,7 @@ export default function MediaControl({
                     setTouchStart(e.touches[0].clientY);
                 }}
                 onTouchMove={(e) => {
-                    if (touchStart && e.touches[0].clientY - touchStart > 230) {
+                    if (touchStart && e.touches[0].clientY - touchStart > 200) {
                         setView(false);
                     }
                     else if (touchStart && touchStart - e.touches[0].clientY > 100) {
