@@ -30,6 +30,7 @@ export default function MediaControl({
         });
     }, []);
     let [imageColors, setImageColors] = useState<any>();
+    let [touchStart, setTouchStart] = useState<number | null>(null);
     // let canvas = useRef<HTMLCanvasElement>(null);
     // let ctx: CanvasRenderingContext2D | null;
     // let bufferLength: number | undefined;
@@ -89,6 +90,7 @@ export default function MediaControl({
                 className={`bg-[#101024] transition-opacity duration-700 pointer-events-none flex w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 justify-center items-start md:items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
                     view ? "h-[97%] opacity-100 bottom-[10px]" : "opacity-0"
                 }`}
+                
             >
                 <img
                     src={state.currentSongArt}
@@ -115,16 +117,28 @@ export default function MediaControl({
                 </Palette>
             </div>
             <div
-                className={`w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-[height] duration-0 md:duration-500 ease-in-out ${
+                className={`w-[96vw] md:w-[99vw] absolute  md:bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-[height] duration-100 md:duration-500 ease-in-out ${
                     view
                         ? "h-[97%] backdrop-blur-3xl bg-[#24222e6c] bottom-[10px]"
-                        : "bg-[#24222e]"
+                        : " h-[4rem] bg-[#24222e] bottom-16"
                 }`}
                 onClick={() => {
                     if (!view) {
                         window.history.pushState({}, "", "#music");
                     }
                     setView(true);
+                }}
+                onTouchStart={(e) => {
+                    setTouchStart(e.touches[0].clientY);
+                }}
+                onTouchMove={(e) => {
+                    if (touchStart && e.touches[0].clientY - touchStart > 230) {
+                        setView(false);
+                    }
+                    else if (touchStart && touchStart - e.touches[0].clientY > 100) {
+                        setView(true);
+                    }
+
                 }}
             >
                 <div

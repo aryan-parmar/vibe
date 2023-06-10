@@ -71,23 +71,23 @@ export default function Page({ params }: { params: PlaylistId }) {
                                 }
                             </Palette>
                         )}
-                        <div className="md:pt-2 pt-6 pl-2 rounded-lg backdrop-blur-3xl z-10 w-full flex md:h-60 items-center justify-center md:justify-start md:gap-6 gap-3 md:flex-row flex-col">
+                        <div className="md:pt-2 pt-14 pl-2 rounded-lg backdrop-blur-3xl z-10 w-full flex md:h-60 items-center justify-center md:justify-start md:gap-6 gap-3 md:flex-row flex-col">
                             <img
                                 src={playlist?.cover}
                                 alt="cover"
-                                className="w-auto md:h-full h-[30svh] rounded-lg"
+                                className="w-auto md:h-full h-[28svh] rounded-lg"
                             />
                             <div className="flex flex-col gap-3 overflow-x-hidden w-full h-full items-center md:items-start">
                                 <div className="flex items-center md:justify-start justify-center gap-4 w-full">
                                     <div className="max-w-[75%] overflow-hidden">
-                                        <h1 className="md:text-6xl text-4xl font-bold p-0 m-0 whitespace-nowrap">
+                                        <h1 className="md:text-6xl text-2xl font-bold p-0 m-0 whitespace-nowrap">
                                             {playlist?.name}
                                         </h1>
                                     </div>
                                     {liked ? (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            className="text-[#D09DA6] text-3xl cursor-pointer"
+                                            className="text-[#D09DA6] text-3xl cursor-pointer hidden md:block"
                                             onClick={() => {
                                                 setLiked(false);
                                             }}
@@ -95,14 +95,14 @@ export default function Page({ params }: { params: PlaylistId }) {
                                     ) : (
                                         <FontAwesomeIcon
                                             icon={faHeartRegular}
-                                            className="text-[#D09DA6] text-3xl cursor-pointer"
+                                            className="text-[#D09DA6] text-3xl cursor-pointer hidden md:block"
                                             onClick={() => {
                                                 setLiked(true);
                                             }}
                                         />
                                     )}
                                 </div>
-                                <h2 className="md:text-xl text-xl font-bold opacity-70 p-0 m-0">
+                                <h2 className="md:text-xl text-md font-bold opacity-70 p-0 m-0">
                                     {playlist?.artist}
                                 </h2>
                                 <div className="flex items-center justify-between gap-3 w-fit">
@@ -132,6 +132,23 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         }}
                                         className="md:h-9 md:w-9 h-12 w-12"
                                     />
+                                    {liked ? (
+                                        <Button
+                                            icon={faHeart}
+                                            className="bg-red-300/70 h-12 w-12 md:hidden block"
+                                            onClick={() => {
+                                                setLiked(false);
+                                            }}
+                                        />
+                                    ) : (
+                                        <Button
+                                            icon={faHeartRegular}
+                                            className="h-12 w-12 md:hidden block"
+                                            onClick={() => {
+                                                setLiked(true);
+                                            }}
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>

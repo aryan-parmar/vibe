@@ -1,9 +1,11 @@
 "use client"
 
+import MainDashboardLayout from "@/components/MainDashboardLayout"
+
 export default function Page() {
     return (
-        <h1>
-            gg
-        </h1>
+        <MainDashboardLayout>
+            <h1>playlist</h1>
+        </MainDashboardLayout>
     )
 }
