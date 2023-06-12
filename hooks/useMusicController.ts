@@ -34,7 +34,6 @@ export const useMusicController = () => {
     ) => {
         if (!state.initiallized) {
             let player = new Audio();
-            
 
             state.setSongPlayer && state.setSongPlayer(player);
             state.setInitiallized && state.setInitiallized(true);
@@ -48,27 +47,13 @@ export const useMusicController = () => {
             state.setCurrentSongIndex && state.setCurrentSongIndex(0);
         }
     };
-    const getQueue = () => {
-        return state.queue;
-    };
-    const setSong = (
+    const addToNavigator = (
         src: string,
         name: string,
         artist: string,
         cover: string
     ) => {
-        if (!state.initiallized) {
-            let player = new Audio(src);
-            state.setSongPlayer && state.setSongPlayer(player);
-            state.setInitiallized && state.setInitiallized(true);
-        } else {
-            state.songPlayer!.src = src;
-        }
-        state.setCurrentSongArt && state.setCurrentSongArt(cover);
-        state.setPlaying && state.setPlaying(false);
-        state.setCurrentSongName && state.setCurrentSongName(name);
-        state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
-        state.setCurrentSongIndex && state.setCurrentSongIndex(0);
+        if (!navigator.mediaSession) return;
         navigator.mediaSession.metadata = new MediaMetadata({
             title: name,
             artist: artist,
@@ -97,6 +82,7 @@ export const useMusicController = () => {
         navigator.mediaSession.setActionHandler("stop", () => {
             state.songPlayer && state.songPlayer.pause();
         });
+        if (!navigator.mediaDevices) return;
         navigator.mediaDevices.addEventListener("pause", () => {
             togglePlay();
         });
@@ -107,8 +93,31 @@ export const useMusicController = () => {
             nextSong();
         });
         navigator.mediaDevices.addEventListener("previoustrack", () => {
-            nextSong();
+            previousSong();
         });
+    };
+    const getQueue = () => {
+        return state.queue;
+    };
+    const setSong = (
+        src: string,
+        name: string,
+        artist: string,
+        cover: string
+    ) => {
+        if (!state.initiallized) {
+            let player = new Audio(src);
+            state.setSongPlayer && state.setSongPlayer(player);
+            state.setInitiallized && state.setInitiallized(true);
+        } else {
+            state.songPlayer!.src = src;
+        }
+        state.setCurrentSongArt && state.setCurrentSongArt(cover);
+        state.setPlaying && state.setPlaying(false);
+        state.setCurrentSongName && state.setCurrentSongName(name);
+        state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
+        state.setCurrentSongIndex && state.setCurrentSongIndex(0);
+        addToNavigator(src, name, artist, cover);
     };
 
     const playSong = (
@@ -118,7 +127,7 @@ export const useMusicController = () => {
         cover: string
     ) => {
         setQueue([{ src, name, artist, cover }]);
-        
+
         if (state.queue && state.queue.length > 0) {
             if (!state.initiallized) {
                 let player = new Audio(src);
@@ -141,46 +150,11 @@ export const useMusicController = () => {
             //     state.setAudioContext && state.setAudioContext(audioContext);
             // }
 
-
             state.setCurrentSongArt && state.setCurrentSongArt(cover);
             state.setPlaying && state.setPlaying(true);
             state.setCurrentSongName && state.setCurrentSongName(name);
             state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: name,
-                artist: artist,
-                artwork: [{ src: cover }],
-            });
-            navigator.mediaSession.setActionHandler("play", () => {
-                togglePlay();
-            });
-            navigator.mediaSession.setActionHandler("pause", () => {
-                togglePlay();
-            });
-            navigator.mediaSession.setActionHandler("nexttrack", () => {
-                nextSong();
-            });
-            navigator.mediaSession.setActionHandler("previoustrack", () => {
-                nextSong();
-            });
-            navigator.mediaSession.setActionHandler("seekto", (details) => {
-                seek(details.seekTime!);
-            });
-            navigator.mediaSession.setActionHandler("stop", () => {
-                state.songPlayer && state.songPlayer.pause();
-            });
-            navigator.mediaDevices.addEventListener("pause", () => {
-                togglePlay();
-            });
-            navigator.mediaDevices.addEventListener("play", () => {
-                togglePlay();
-            });
-            navigator.mediaDevices.addEventListener("nexttrack", () => {
-                nextSong();
-            });
-            navigator.mediaDevices.addEventListener("previoustrack", () => {
-                nextSong();
-            });
+            addToNavigator(src, name, artist, cover);
         }
     };
     const togglePlay = () => {
@@ -212,41 +186,7 @@ export const useMusicController = () => {
             state.setPlaying && state.setPlaying(true);
             state.setCurrentSongName && state.setCurrentSongName(name);
             state.setCurrentSongArtist && state.setCurrentSongArtist(artist);
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: name,
-                artist: artist,
-                artwork: [{ src: cover }],
-            });
-            navigator.mediaSession.setActionHandler("play", () => {
-                togglePlay();
-            });
-            navigator.mediaSession.setActionHandler("pause", () => {
-                togglePlay();
-            });
-            navigator.mediaSession.setActionHandler("nexttrack", () => {
-                nextSong();
-            });
-            navigator.mediaSession.setActionHandler("previoustrack", () => {
-                nextSong();
-            });
-            navigator.mediaSession.setActionHandler("seekto", (details) => {
-                seek(details.seekTime!);
-            });
-            navigator.mediaSession.setActionHandler("stop", () => {
-                state.songPlayer && state.songPlayer.pause();
-            });
-            navigator.mediaDevices.addEventListener("pause", () => {
-                togglePlay();
-            });
-            navigator.mediaDevices.addEventListener("play", () => {
-                togglePlay();
-            });
-            navigator.mediaDevices.addEventListener("nexttrack", () => {
-                nextSong();
-            });
-            navigator.mediaDevices.addEventListener("previoustrack", () => {
-                nextSong();
-            });
+            addToNavigator(src, name, artist, cover);
         }
     };
     const nextSong = () => {

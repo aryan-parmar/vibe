@@ -29,8 +29,9 @@ export default function MediaControl({
             setView(false);
         });
     }, []);
-    let [imageColors, setImageColors] = useState<any>();
-    let [touchStart, setTouchStart] = useState<number | null>(null);
+    let [touchStartX, setTouchStartX] = useState<number | null>(null);
+    let [touchStartY, setTouchStartY] = useState<number | null>(null);
+    let [changedSong, setChangedSong] = useState(false);
     // let canvas = useRef<HTMLCanvasElement>(null);
     // let ctx: CanvasRenderingContext2D | null;
     // let bufferLength: number | undefined;
@@ -90,12 +91,11 @@ export default function MediaControl({
                 className={`bg-[#101024] transition-opacity duration-700 pointer-events-none flex w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 justify-center items-start md:items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
                     view ? "h-[97%] opacity-100 bottom-[10px]" : "opacity-0"
                 }`}
-                
             >
                 <img
                     src={state.currentSongArt}
                     alt="cover"
-                    className={`w-[70vh] rounded-lg duration-[3000ms] transition-opacity brightness-50 ${
+                    className={`w-[70vh] hidden md:block rounded-lg duration-[3000ms] transition-opacity brightness-50 ${
                         view ? "h-[60vh] opacity-100" : "h-0 opacity-0"
                     }`}
                 />
@@ -106,9 +106,9 @@ export default function MediaControl({
                                 style={{
                                     background: `radial-gradient(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`,
                                 }}
-                                className={`md:w-[70vh] w-[70vw] rounded-lg duration-[3000ms] transition-opacity brightness-50 absolute block ${
+                                className={`md:w-[70vh] w-[80vw] rounded-lg duration-[3000ms] transition-opacity md:brightness-75 absolute block ${
                                     view
-                                        ? "h-[60vh] opacity-50"
+                                        ? "md:h-[60vh] h-[50vh] top-5 md:top-0 md:opacity-50"
                                         : "h-0 opacity-0"
                                 }`}
                             ></div>
@@ -129,16 +129,42 @@ export default function MediaControl({
                     setView(true);
                 }}
                 onTouchStart={(e) => {
-                    setTouchStart(e.touches[0].clientY);
+                    setTouchStartY(e.touches[0].clientY);
+                    setTouchStartX(e.touches[0].clientX);
                 }}
                 onTouchMove={(e) => {
-                    if (touchStart && e.touches[0].clientY - touchStart > 200) {
+                    if (
+                        touchStartY &&
+                        e.touches[0].clientY - touchStartY > 100
+                    ) {
                         setView(false);
-                    }
-                    else if (touchStart && touchStart - e.touches[0].clientY > 100) {
+                    } else if (
+                        touchStartY &&
+                        touchStartY - e.touches[0].clientY > 100
+                    ) {
                         setView(true);
                     }
 
+                    if (
+                        touchStartX &&
+                        e.touches[0].clientX - touchStartX > 100
+                    ) {
+                        if (!changedSong) {
+                            MusicController.previousSong();
+                            setChangedSong(true);
+                        }
+                    } else if (
+                        touchStartX &&
+                        touchStartX - e.touches[0].clientX > 100
+                    ) {
+                        if (!changedSong) {
+                            MusicController.nextSong();
+                            setChangedSong(true);
+                        }
+                    }
+                }}
+                onTouchEnd={() => {
+                    setChangedSong(false);
                 }}
             >
                 <div

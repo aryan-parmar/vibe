@@ -35,17 +35,17 @@ export default function Album(props: {
             }}
         >
             <div
-                className="aspect-square w-[85%] bg-cover rounded-lg overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0 backdrop-brightness-150"
+                className="aspect-square hidden md:block w-[85%] bg-cover rounded-lg overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0 backdrop-brightness-150"
                 ref={coverAmbient}
             ></div>
-            <div className="w-full h-full bg-cover rounded-lg overflow-hidden bg-center opacity max-h-[300px] max-w-[300px] p-3 md:p-4 bg-[rgba(62,62,62,0.6)] z-20 relative backdrop-blur-3xl">
+            <div className="w-full h-full bg-cover rounded-lg overflow-hidden bg-center opacity max-h-[300px] max-w-[300px] p-[0.6rem] md:p-4 bg-[rgba(62,62,62,0.8)] md:bg-[rgba(62,62,62,0.6)] z-20 relative md:backdrop-blur-3xl">
                 <div
                     className="aspect-square w-full bg-cover rounded-lg overflow-hidden relative"
                     ref={cover}
                 >
                     <div className="absolute inset-0 w-full h-full bg flex justify-center items-center opacity-0 hover:opacity-100 transition-all cursor-pointer"></div>
                 </div>
-                <div className=" flex justify-between items-center mt-2 md:h-10 relative">
+                <div className="flex justify-between items-center mt-2 md:h-10 relative">
                     <h2 className="cursor-pointer font-semibold text-md text-[#d7d7d7] capitalize max-w-[100%] w-[10rem] overflow-hidden whitespace-nowrap">
                         {props.name}
                     </h2>
