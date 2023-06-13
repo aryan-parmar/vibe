@@ -68,6 +68,7 @@ body {
 
 :root {
   --percent: 0%;
+  --volume-percent: 0%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,18 +85,22 @@ body {
 .logo {
   font-family: 'Leckerli One', cursive;
 }
-.album{
+
+.album {
   overflow: hidden;
 }
-.play-btn{
+
+.play-btn {
   transform: translateX(100%);
   opacity: 0;
   transition: all 0.1s ease-in-out;
 }
-.album:hover .play-btn{
+
+.album:hover .play-btn {
   opacity: 1;
   transform: translateX(0%);
 }
+
 .input-slider {
   position: relative !important;
   appearance: none;
@@ -106,8 +111,12 @@ body {
   color: #9DA5D0;
 }
 
-.input-slider::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, #9DA5D0 var(--percent), transparent var(--percent));
+.seeker::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #9DA5D0 var(--percent), #1a1a1a var(--percent));
+}
+
+.volume::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #9DA5D0 var(--volume-percent), #1a1a1a var(--volume-percent)) !important;
 }
 
 .input-slider::-webkit-slider-runnable-track {
@@ -132,6 +141,27 @@ body {
   transform: translateY(15%);
 }
 
+/* .volume-controller{
+  background: none;
+  transition: all 0.1s ease-in;
+} */
+
+.volume-controller{
+  background: rgba(157,165,208,0.2);
+}
+
+/* .volume-controller .volume{
+  width: 0;
+  opacity: 0;
+  transition: all 0.1s ease-in;
+} */
+.volume-controller .volume{
+  width: 5rem;
+  opacity: 1;
+  display: block;
+  margin-right: 0.7rem;
+}
+
 .custom-grid-1 {
   display: grid;
   grid-template-columns: 22.1875% 22.1875% 22.1875% 22.1875%;
@@ -140,6 +170,7 @@ body {
   overflow-x: scroll;
   overflow-y: hidden;
 }
+
 .custom-grid {
   display: grid;
   grid-template-columns: 17% 17% 17% 17% 17%;
@@ -150,10 +181,12 @@ body {
   height: 90%;
   overflow-x: scroll;
 }
-.custom-grid-1 .album:nth-child(n + 5){
+
+.custom-grid-1 .album:nth-child(n + 5) {
   display: none;
 }
-.custom-grid .album:nth-child(n + 6){
+
+.custom-grid .album:nth-child(n + 6) {
   display: none;
 }
 
@@ -162,6 +195,7 @@ body {
   .custom-grid {
     grid-template-columns: 30.8% 30.8% 30.8% 30.8% 30.8%;
   }
+
   .custom-grid-1 {
     grid-template-columns: 48.1% 48.1% 48.1% 48.1%;
   }

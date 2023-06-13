@@ -45,6 +45,7 @@ export const useMusicController = () => {
                 queue[0].cover
             );
             state.setCurrentSongIndex && state.setCurrentSongIndex(0);
+            state.setVolume && state.setVolume(player.volume);
         }
     };
     const addToNavigator = (
@@ -255,6 +256,12 @@ export const useMusicController = () => {
         state.setQueue && state.setQueue([...state.queue, ...playlist]);
         notification.addNotification("Added to queue");
     };
+    const setVolume = (volume: number) => {
+        if (state.songPlayer && state.initiallized) {
+            state.songPlayer.volume = volume;
+            state.setVolume && state.setVolume(volume);
+        }
+    };
     return {
         init,
         playSong,
@@ -267,5 +274,6 @@ export const useMusicController = () => {
         getQueue,
         setSong,
         enqueue,
+        setVolume,
     };
 };

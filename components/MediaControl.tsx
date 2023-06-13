@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { use, useContext, useEffect, useRef, useState } from "react";
 import { useMusicController } from "@/hooks/useMusicController";
 import { MusicControllerContext } from "@/contexts/MusicControllerContext";
 import {
@@ -11,6 +11,7 @@ import {
     faUpRightAndDownLeftFromCenter,
     faDownLeftAndUpRightToCenter,
     faChevronDown,
+    faVolumeDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./UiElements";
 import { Palette, usePalette } from "color-thief-react";
@@ -72,9 +73,7 @@ export default function MediaControl({
 
     useEffect(() => {
         if (state.initiallized) {
-            let input = document.querySelector(
-                ".input-slider"
-            ) as HTMLInputElement;
+            let input = document.querySelector(".seeker") as HTMLInputElement;
             var r = document.querySelector(":root") as HTMLElement;
             r!.style.setProperty(
                 "--percent",
@@ -85,6 +84,18 @@ export default function MediaControl({
             );
         }
     }, [state.currentSongDuration, state.currentTime]);
+    useEffect(() => {
+        if (state.initiallized) {
+            let volumeInput = document.querySelector(
+                ".volume"
+            ) as HTMLInputElement;
+            var r = document.querySelector(":root") as HTMLElement;
+            r!.style.setProperty(
+                "--volume-percent",
+                parseFloat(volumeInput.value).toString() + "%"
+            );
+        }
+    }, [state.volume]);
     return (
         <>
             <div
@@ -322,7 +333,7 @@ export default function MediaControl({
 
                             <input
                                 type="range"
-                                className="w-full input-slider"
+                                className="w-full input-slider seeker"
                                 max={state.currentSongDuration}
                                 value={state.currentTime}
                                 onChange={(e) => {
@@ -340,11 +351,30 @@ export default function MediaControl({
                         }`}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <Button
-                            icon={state.volume != 0 ? faVolumeUp : faVolumeMute}
-                            onClick={MusicController.toggleMute}
-                            className="h-8 w-8"
-                        />
+                        <div className="flex items-center justify-center gap-1 rounded-3xl volume-controller">
+                            <Button
+                                icon={
+                                    state.volume != 0
+                                        ? state.volume > 0.5
+                                            ? faVolumeUp
+                                            : faVolumeDown
+                                        : faVolumeMute
+                                }
+                                onClick={MusicController.toggleMute}
+                                className="h-8 w-8"
+                            />
+                            <input
+                                type="range"
+                                className="volume input-slider"
+                                max={100}
+                                value={state.volume*100}
+                                onChange={(e) => {
+                                    MusicController.setVolume(
+                                        parseInt(e.target.value)/100
+                                    );
+                                }}
+                            />
+                        </div>
                         <Button
                             icon={faUpRightAndDownLeftFromCenter}
                             onClick={() => {
