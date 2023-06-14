@@ -88,6 +88,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         className="text-[#D09DA6] text-3xl cursor-pointer hidden md:block"
                                         onClick={() => {
                                             setLiked(false);
+                                            navigator.vibrate(100);
                                         }}
                                     />
                                 ) : (
@@ -96,6 +97,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         className="text-[#D09DA6] text-3xl cursor-pointer hidden md:block"
                                         onClick={() => {
                                             setLiked(true);
+                                            navigator.vibrate(100);
                                         }}
                                     />
                                 )}
@@ -136,6 +138,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         className="bg-red-300/70 h-12 w-12 md:hidden block"
                                         onClick={() => {
                                             setLiked(false);
+                                            navigator.vibrate(100);
                                         }}
                                     />
                                 ) : (
@@ -144,6 +147,7 @@ export default function Page({ params }: { params: PlaylistId }) {
                                         className="h-12 w-12 md:hidden block"
                                         onClick={() => {
                                             setLiked(true);
+                                            navigator.vibrate(100);
                                         }}
                                     />
                                 )}

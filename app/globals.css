@@ -112,7 +112,7 @@ body {
 }
 
 .seeker::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, #9DA5D0 var(--percent), #1a1a1a var(--percent));
+  background: linear-gradient(to right, #9DA5D0 var(--percent), #444444 var(--percent));
 }
 
 .volume::-webkit-slider-runnable-track {

@@ -1,5 +1,9 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { ReactNode } from "react";
+import {
+    faAngleLeft,
+    faBackward,
+    faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import { ReactNode, useEffect, useState } from "react";
 import { Button, SearchInput } from "./UiElements";
 import data from "@/config/navbar.json";
 import { useRouter } from "next/navigation";
@@ -15,6 +19,19 @@ export default function MainDashboardLayout({
     children: ReactNode;
 }) {
     let router = useRouter();
+    let [url, setUrl] = useState("false");
+    useEffect(() => {
+        if (
+            window?.location?.pathname === "/dashboard" ||
+            window?.location?.pathname === "/profile" ||
+            window?.location?.pathname === "/liked" ||
+            window?.location?.pathname === "/playlist"
+        ) {
+            setUrl("show");
+        } else {
+            setUrl("");
+        }
+    }, [window?.location?.pathname]);
     return (
         <Loading loading={loading}>
             <div
@@ -23,9 +40,17 @@ export default function MainDashboardLayout({
                     className
                 }
             >
-                <div className="h-16 w-full flex justify-start items-center gap-2 top-0 p-4 md:pl-4 z-40 bg-[rgba(66,66,66,0.2)] md:bg-transparent">
+                <div className="h-16 w-full flex justify-start items-center gap-2 top-0 p-4 md:pl-4 z-40 bg-[rgba(66,66,66,0.3)] md:bg-transparent">
                     <h2 className="logo text-3xl block md:hidden flex-1">
-                        Vibe
+                        {url === "" ? (
+                            <Button
+                                icon={faAngleLeft}
+                                onClick={() => router.back()}
+                                className="h-9 w-9 bg-transparent"
+                            />
+                        ) : (
+                            "Vibe"
+                        )}
                     </h2>
                     <Button
                         className="md:hidden h-9 w-9"

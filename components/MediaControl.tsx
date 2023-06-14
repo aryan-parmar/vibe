@@ -101,7 +101,9 @@ export default function MediaControl({
             <div
                 className={`bg-[#101024] transition-opacity duration-700 pointer-events-none flex w-[96vw] md:w-[99vw] h-[4.5rem] absolute bottom-20 md:bottom-[10px] z-30 justify-center items-start md:items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] ${
                     view ? "h-[97%] opacity-100 bottom-[10px]" : "opacity-0"
-                }`}
+                }
+                ${state.initiallized ? " block" : " hidden"}
+                `}
             >
                 <img
                     src={state.currentSongArt}
@@ -128,11 +130,14 @@ export default function MediaControl({
                 </Palette>
             </div>
             <div
-                className={`w-[96vw] md:w-[99vw] absolute  md:bottom-[10px] z-30 flex justify-center items-center rounded-lg shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)] transition-[height] duration-100 md:duration-500 ease-in-out ${
+                className={`w-[96vw] md:w-[99vw] absolute  md:bottom-[10px] z-30 flex justify-center items-center rounded-lg transition-all duration-100 md:duration-500 ease-in-out ${
+                    
                     view
                         ? "h-[97%] backdrop-blur-3xl bg-[#24222e6c] bottom-[10px]"
                         : " h-[4rem] bg-[#24222e] bottom-16"
-                }`}
+                }
+                ${state.initiallized ? " translate-y-0 shadow-[0px_-30px_53px_0px_rgba(0,0,0,0.95)]" : " md:translate-y-[150%] translate-y-[200%] shadow-transparent"}
+                `}
                 onClick={() => {
                     if (!view) {
                         window.history.pushState({}, "", "#music");
