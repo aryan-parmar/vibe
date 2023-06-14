@@ -1,6 +1,5 @@
 import {
     faAngleLeft,
-    faBackward,
     faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode, useEffect, useState } from "react";
@@ -31,7 +30,7 @@ export default function MainDashboardLayout({
         } else {
             setUrl("");
         }
-    }, [window?.location?.pathname]);
+    }, []);
     return (
         <Loading loading={loading}>
             <div
