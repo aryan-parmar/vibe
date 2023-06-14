@@ -170,7 +170,7 @@ function MusicButton(props: {
                             className="text-[#D09DA6] text-2xl cursor-pointer"
                             onClick={() => {
                                 setLiked(false);
-                                navigator.vibrate(100);
+                                navigator.vibrate([50,50]);
                             }}
                         />
                     ) : (
