@@ -71,8 +71,7 @@ export default function RootLayout({
 
     const router = useRouter();
     useEffect(() => {
-        if(window.location.pathname == "/")
-            router.push("/dashboard");
+        router.push("/dashboard");
     }, []);
     let [view, setView] = useState(false);
     return (
