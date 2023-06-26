@@ -35,10 +35,10 @@ export default function Album(props: {
             }}
         >
             <div
-                className="aspect-square hidden md:block w-[85%] bg-cover rounded-lg overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0 backdrop-brightness-150"
+                className="aspect-square hidden md:block w-[85%] bg-cover rounded-lg opacity-70 overflow-hidden absolute top-[50%] inset-x-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
                 ref={coverAmbient}
             ></div>
-            <div className="w-full h-full bg-cover rounded-lg overflow-hidden bg-center opacity max-h-[300px] max-w-[300px] p-[0.6rem] md:p-4 bg-[rgba(62,62,62,0.8)] md:bg-[rgba(62,62,62,0.6)] z-20 relative md:backdrop-blur-3xl">
+            <div className="w-full h-full bg-cover rounded-lg overflow-hidden bg-center opacity max-h-[300px] max-w-[300px] p-[0.6rem] md:p-4 bg-[rgba(62,62,62,0.8)] md:bg-[rgba(62,62,62,0.6)] z-20 relative md:backdrop-blur-xl">
                 <div
                     className="aspect-square w-full bg-cover rounded-lg overflow-hidden relative"
                     ref={cover}
